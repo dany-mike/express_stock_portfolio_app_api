@@ -1,11 +1,8 @@
-const users = [
-    {
-        name: 'username'
-    },
-    {
-        name: 'name'
-    }
-];
+// Hash a password with bcrypt
+const bcrypt = require('bcrypt');
+
+// Model Object here...
+const users = [];
 
 function getUsers(req, res, next) {
     res.json(users);
@@ -13,15 +10,28 @@ function getUsers(req, res, next) {
     return next()
 }
 
-function userLogin(req, res, next) {
-    const user = {
-        name: req.body.name,
-        password: req.body.password
+async function userLogin(req, res, next) {
+    try {
+        // Set up the hash
+        const salt = await bcrypt.genSalt();
+        // Hash password
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        
+        const user = {
+            name: req.body.name,
+            password: hashedPassword
+        }
+    
+        users.push(user);
+        res.rawResponse = res.status(201).send();
+        return next();
+
+    } catch (err) {
+        res.status(500).send()
+        console.log(err)
     }
 
-    users.push(user);
-    res.rawResponse = res.status(201).send();
-    return next();
+
 }
 
 module.exports = {getUsers, userLogin};
