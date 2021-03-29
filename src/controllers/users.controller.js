@@ -7,7 +7,7 @@ const users = [];
 function getUsers(req, res, next) {
     res.json(users);
     res.rawResponse = users;
-    return next()
+    return next();
 }
 
 async function userLogin(req, res, next) {
@@ -27,8 +27,8 @@ async function userLogin(req, res, next) {
         return next();
 
     } catch (err) {
-        res.status(500).send()
-        console.log(err)
+        res.status(500).send();
+        console.log(err);
     }
 
 
