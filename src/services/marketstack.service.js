@@ -7,6 +7,8 @@ const marketstack = axios.create({
     }
 });
 
-const get = (path) => marketstack.get(path).then((response) => response.data).catch((error) => error.message);
+function get(path) {
+    return marketstack.get(path).then((response) => response.data).catch((error) => error.message);
+}
 
 module.exports = { get }
