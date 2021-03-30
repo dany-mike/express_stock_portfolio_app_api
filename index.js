@@ -5,6 +5,8 @@ const app = express();
 
 const cors = require('cors');
 
+const dbConnection = require('./src/utils/db.util');
+
 const serialization = require("./src/middlewares/serialization.middleware");
 
 const forecast = require('./src/services/forecast.service');
@@ -17,6 +19,9 @@ app.use(express.json());
 
 // Allow access-control-allow-origin
 app.use(cors());
+
+// DB connection
+dbConnection()
 
 // Routes Import
 const authRoute = require('./src/routes/auth.route');
