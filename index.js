@@ -1,14 +1,16 @@
 require('dotenv').config();
 
 const express = require('express');
-const cors = require('cors');
-
 const app = express();
+
+const cors = require('cors');
 
 const serialization = require("./src/middlewares/serialization.middleware");
 
 const forecast = require('./src/services/forecast.service');
-const getHistoricalDataStockController = require('./src/controllers/getHistoricalDataStock.controller');
+const getIntradayUpdate = require('./src/controllers/marketstack/getIntradayUpdate.controller');
+const getEndOfDay = require('./src/controllers/marketstack/getEndOfDay.controller');
+
 
 // Data Parsing
 app.use(express.json());
@@ -16,11 +18,20 @@ app.use(express.json());
 // Allow access-control-allow-origin
 app.use(cors());
 
+// Routes Import
+const authRoute = require('./src/routes/auth.route');
+
+// Auth endpoints
+app.use('/user', authRoute);
+
+// Forecast endpoints
 app.get('/forecast/price-target/:symbol', forecast.getPriceTargets , serialization);
 app.get('/forecast/news-sentiment/:symbol', forecast.getNewsSentimentData , serialization);
 app.get('/forecast/trending-stock/', forecast.getTrendingStocks , serialization);
 
-app.get('/historical/:symbol/:from/:to', getHistoricalDataStockController.getHistoricalDataStock , serialization);
+// Marketstack endpoints
+app.get('/eod-price/:symbol/', getEndOfDay , serialization);
+app.get('/intraday-price/:symbol/', getIntradayUpdate, serialization);
 
 app.listen(process.env.PORT, 'localhost', () => {
     console.log('started');
