@@ -8,15 +8,18 @@ async function register(req, res, next) {
     const validate = validation.registerValidation(req.body)
 
     if(validate.error) {
-        res.status(400)
-        .send(validate.error.details[0].message)
+        res.rawStatus = 400
+        res.rawResponse = validate.error.details[0].message
+        return next();
     }
 
     // Check if the user is already in the db
     const isEmail = await User.findOne({email: req.body.email})
 
     if(isEmail) {
-        return res.status(400).send("Email already exists")
+        res.rawStatus = 400
+        res.rawResponse = "Email already exists"
+        return next();
     }
 
     // Hash passwords
@@ -31,12 +34,13 @@ async function register(req, res, next) {
     });
 
     try {
-        const savedUser = await user.save()
-        res.rawResponse = savedUser
+        await user.save();
+        res.rawStatus = 200;
+        res.rawResponse = { user: user._id };
         return next()
-
     } catch(err) {
-        res.rawResponse = res.status(400)
+        res.rawStatus = 400
+        res.rawResponse = err.message
         return next()
     }   
 }

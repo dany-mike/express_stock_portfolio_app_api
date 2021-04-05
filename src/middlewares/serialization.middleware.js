@@ -1,5 +1,5 @@
 function serialization(req, res) {
-    return res.send(res.rawResponse);
+    return res.status(res.rawStatus).send(res.rawResponse);
 }
 
 module.exports = serialization;
