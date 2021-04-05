@@ -3,6 +3,7 @@ const validation  = require('../../utils/validation.util');
 
 async function register(req, res, next) {
 
+    // Validation
     const validate = validation.registerValidation(req.body)
 
     if(validate.error) {
@@ -10,7 +11,14 @@ async function register(req, res, next) {
         .send(validate.error.details[0].message)
     }
 
-    // Create a new User instance
+    // Check if the user is already in the db
+    const isEmail = await User.findOne({email: req.body.email})
+
+    if(isEmail) {
+        res.status(400).send("Email already exists")
+    }
+
+    // Create a new User
     const user = new User({
         name: req.body.name,
         email: req.body.email,
