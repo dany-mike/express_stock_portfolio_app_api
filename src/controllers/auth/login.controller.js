@@ -17,7 +17,7 @@ async function login(req, res, next) {
     const user = await User.findOne({email: req.body.email})
     if(!user) {
         res.rawStatus = 400;
-        res.rawResponse = "Email is not found";
+        res.rawResponse = "Email or password is wrong";
         return next();
     }
 
@@ -26,7 +26,7 @@ async function login(req, res, next) {
 
     if(!validPassword) {
         res.rawStatus = 400;
-        res.rawResponse = "Invalid password";
+        res.rawResponse = "Email or password is wrong";
         return next();
     }
 
