@@ -9,13 +9,6 @@ if(process.env.NODE_ENV !== 'production') {
 
 const dbConnection = require('./src/utils/db.util');
 
-const serialization = require("./src/middlewares/serialization.middleware");
-
-const forecast = require('./src/services/forecast.service');
-const getIntradayUpdate = require('./src/controllers/marketstack/getIntradayUpdate.controller');
-const getEndOfDay = require('./src/controllers/marketstack/getEndOfDay.controller');
-
-
 // Data Parsing
 app.use(express.json());
 
@@ -27,18 +20,18 @@ dbConnection()
 
 // Routes Import
 const authRoute = require('./src/routes/auth.route');
+const forecastRoute = require('./src/routes/forecast.route');
+const marketstackRoute = require('./src/routes/marketstack.route');
 
 // Auth endpoints
 app.use('/user', authRoute);
 
 // Forecast endpoints
-app.get('/forecast/price-target/:symbol', forecast.getPriceTargets , serialization);
-app.get('/forecast/news-sentiment/:symbol', forecast.getNewsSentimentData , serialization);
-app.get('/forecast/trending-stock/', forecast.getTrendingStocks , serialization);
+app.use('/forecast', forecastRoute)
 
 // Marketstack endpoints
-app.get('/eod-price/:symbol/', getEndOfDay , serialization);
-app.get('/intraday-price/:symbol/', getIntradayUpdate, serialization);
+app.use('/marketstack', marketstackRoute)
+
 
 app.listen(process.env.PORT, 'localhost', () => {
     console.log('started');
