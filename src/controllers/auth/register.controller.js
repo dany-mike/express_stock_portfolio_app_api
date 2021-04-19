@@ -13,12 +13,21 @@ async function register(req, res, next) {
         return next();
     }
 
-    // Check if the user is already in the db
+    // Check if the email is already in the db
     const isEmail = await User.findOne({email: req.body.email})
 
     if(isEmail) {
         res.rawStatus = 400
         res.rawResponse = "Email already exists"
+        return next();
+    }
+
+    // Check if the username is available in the db
+    const isUsername = await User.findOne({username: req.body.username})
+
+    if(isUsername) {
+        res.rawStatus = 400
+        res.rawResponse = "This username is no longer available"
         return next();
     }
 
@@ -28,7 +37,7 @@ async function register(req, res, next) {
 
     // Create a new User
     const user = new User({
-        name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
         password: hashedPassword,
     });
