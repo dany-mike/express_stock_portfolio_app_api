@@ -7,6 +7,7 @@ function getPriceTargets (req, res, next) {
     tipranksApi.getPriceTargets(req.params.symbol)
     .then(response => {
         res.rawResponse = response
+        res.rawStatus = 200;
         return next()
     }).catch(error => console.log(error))
 }
@@ -15,6 +16,7 @@ function getNewsSentimentData (req, res, next) {
     tipranksApi.getNewsSentimentData(req.params.symbol)
     .then(response => {
         res.rawResponse = response
+        res.rawStatus = 200;
         return next()
     }).catch(error => console.log(error))
 }
@@ -23,6 +25,8 @@ function getTrendingStocks (req, res, next) {
     tipranksApi.getTrendingStocks()
     .then(response => {
         res.rawResponse = response
+        res.rawStatus = 200;
+        res.send(req.user)
         return next()
     }).catch(error => console.log(error))
 }
