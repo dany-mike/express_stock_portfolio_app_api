@@ -2,9 +2,6 @@ const axios = require('axios');
 
 const marketstack = axios.create({
     baseURL: process.env.API_URL_MARKETSTACK,
-    headers: {
-        'Authorization': ``
-    }
 });
 
 function get(path) {
