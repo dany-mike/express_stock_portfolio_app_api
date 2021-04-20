@@ -33,7 +33,7 @@ async function login(req, res, next) {
 
     // Create and add a token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
-        expiresIn: '1h' // expires in one hour
+        expiresIn: '4h' // expires in four hours
     })
 
     res.header('auth-token', token).send(token)
