@@ -48,10 +48,10 @@ async function register(req, res, next) {
         res.rawResponse = { user: user._id };
         return next()
     } catch(err) {
-        res.rawStatus = 400
+        res.rawStatus = 500
         res.rawResponse = err.message
         return next()
-    }   
+    }
 }
 
 module.exports = register
