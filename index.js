@@ -16,22 +16,25 @@ app.use(express.json());
 app.use(cors());
 
 // DB connection
-dbConnection()
+dbConnection();
 
 // Routes Import
 const authRoute = require('./src/routes/auth.route');
 const forecastRoute = require('./src/routes/forecast.route');
 const marketstackRoute = require('./src/routes/marketstack.route');
+const financialModelingRoute = require('./src/routes/financialmodeling.route');
 
 // Auth endpoints
 app.use('/user', authRoute);
 
 // Forecast endpoints
-app.use('/forecast', forecastRoute)
+app.use('/forecast', forecastRoute);
 
 // Marketstack endpoints
-app.use('/marketstack', marketstackRoute)
+app.use('/marketstack', marketstackRoute);
 
+//Financial Modeling endpoints
+app.use('/fm-api', financialModelingRoute);
 
 app.listen(process.env.PORT, 'localhost', () => {
     console.log('started');
