@@ -17,6 +17,12 @@ async function addStockToWallet(req, res, next) {
 
     const isInMyWallet = await Company.find({wallet: wallet._id})
 
+    if(wallet._id == null) {
+        res.rawResponse = "User id doesnt exists !"
+        res.rawStatus = 400
+        return next();
+    }
+
     for (const wallet of isInMyWallet) {
         if(wallet.companyName == companyName[0].companyName) {
             res.rawResponse = "You already have this company in your wallet !"

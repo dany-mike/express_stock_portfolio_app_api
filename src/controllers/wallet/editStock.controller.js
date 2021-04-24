@@ -13,6 +13,14 @@ async function editStock(req, res, next) {
     
     const wallet = await Wallet.findOne({user: req.params.user_id})
 
+    const company = await Company.findOne({wallet: wallet._id})
+
+    if(company == null) {
+        res.rawStatus = 400;
+        res.rawResponse = "This company is not in your wallet !";
+        return next();
+    }
+
     // Update company
     const filter = {
         symbol: req.params.symbol,
