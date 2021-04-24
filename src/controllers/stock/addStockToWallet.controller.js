@@ -17,14 +17,13 @@ async function addStockToWallet(req, res, next) {
 
     const isInMyWallet = await Company.find({wallet: wallet._id})
 
-    await isInMyWallet.forEach((company) => {
-        if(company.companyName == companyName[0].companyName) {
+    for (const wallet of isInMyWallet) {
+        if(wallet.companyName == companyName[0].companyName) {
             res.rawResponse = "You already have this company in your wallet !"
             res.rawStatus = 400
             return next();
-        } else {
         }
-    })
+    }
 
     // Create a new company
     const company = new Company({
