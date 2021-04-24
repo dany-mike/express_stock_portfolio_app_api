@@ -23,7 +23,6 @@ const authRoute = require('./src/routes/auth.route');
 const forecastRoute = require('./src/routes/forecast.route');
 const marketstackRoute = require('./src/routes/marketstack.route');
 const financialModelingRoute = require('./src/routes/financialmodeling.route');
-const companyRoute = require('./src/routes/company.route');
 const walletRoute = require('./src/routes/wallet.route');
 
 // Auth endpoints
@@ -38,10 +37,7 @@ app.use('/marketstack', marketstackRoute);
 //Financial Modeling endpoints
 app.use('/fm-api', financialModelingRoute);
 
-// Stock route
-app.use("/company", companyRoute);
-
-// Get Wallet Route
+// Wallet Route
 app.use('/wallet', walletRoute);
 
 app.listen(process.env.PORT, 'localhost', () => {
