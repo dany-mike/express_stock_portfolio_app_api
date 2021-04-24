@@ -1,6 +1,8 @@
 const User = require('../../models/User.model');
 const validation  = require('../../utils/validation.util');
 const bcrypt = require('bcryptjs');
+const Wallet = require('../../models/Wallet.model') 
+
 
 async function register(req, res, next) {
 
@@ -42,8 +44,15 @@ async function register(req, res, next) {
         password: hashedPassword,
     });
 
+    // Create a Wallet for this new User
+    const wallet = new Wallet({
+        walletName: req.body.username +"'s wallet",
+        user: user._id,
+    })
+
     try {
         await user.save();
+        await wallet.save();
         res.rawStatus = 200;
         res.rawResponse = { user: user._id };
         return next()

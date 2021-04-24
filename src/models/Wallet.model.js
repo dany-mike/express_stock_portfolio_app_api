@@ -7,13 +7,14 @@ const walletSchema = new mongoose.Schema({
         max: 255,
         min: 6
     }, 
-    companies: {
-        type: [],
+    user: {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "User"
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
 })
 
 module.exports = mongoose.model('Wallet', walletSchema)

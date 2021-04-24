@@ -26,7 +26,6 @@ function getTrendingStocks (req, res, next) {
     .then(response => {
         res.rawResponse = response
         res.rawStatus = 200;
-        res.send(req.user)
         return next()
     }).catch(error => console.log(error))
 }
