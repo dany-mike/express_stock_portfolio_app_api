@@ -8,27 +8,34 @@ const companySchema = new mongoose.Schema({
         max: 255,
         min: 6
     },
+    symbol: {
+        type: String,
+        required: true,
+        max: 255,
+        min: 6
+    },
     sharesNumber: {
         type: Number,
-        required: true,
-    },
-    about: {
-        type: String,
         required: true,
     },
     stockPrice: {
         type: Number,
         required: true,
     },
+    about: {
+        type: String,
+    },
     forecastPrice: {
         type: Number,
-        required: true,
     },
     activityArea: {
         type: String,
-        required: true,
         max: 255,
         min: 6
+    },
+    wallet: {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "Wallet"
     },
     date: {
         type: Date,
