@@ -21,7 +21,7 @@ async function deleteWallet(req, res, next) {
 
     const filter = {
         walletName: wallet.walletName,
-        user: user._id  
+        user: user._id
     };
 
     try {

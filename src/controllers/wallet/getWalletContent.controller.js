@@ -12,11 +12,14 @@ async function getWalletContent(req, res, next) {
         return next();
     }
 
-    const wallet = await Wallet.findOne({username: req.params.walletId})
+    const wallet = await Wallet.findOne({
+        user: user._id,
+        _id: req.params.walletId
+    })
 
     if(!wallet) {
         res.rawStatus = 400
-        res.rawResponse = `id ${req.params.walletId} does not exist`
+        res.rawResponse = `WalletId: ${req.params.walletId} does not exist`
         return next();
     }
 
