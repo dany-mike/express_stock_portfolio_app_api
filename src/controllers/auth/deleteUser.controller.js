@@ -20,7 +20,9 @@ async function deleteUser(req, res, next) {
         res.rawResponse = msg;
         return next();
     } catch(err) {
-        console.log(err);
+        res.rawStatus = 500;
+        res.rawResponse = "An error occured"
+        return next()
     }
 }
 

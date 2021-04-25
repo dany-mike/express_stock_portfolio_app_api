@@ -1,8 +1,8 @@
+const Wallet = require('../../models/Wallet.model');
 const User = require('../../models/User.model')
 const Company = require('../../models/Company.model')
-const Wallet = require('../../models/Wallet.model');
 
-async function deleteStock(req, res, next) {
+async function getWalletContent(req, res, next) {
 
     const user = await User.findOne({username: req.params.username})
 
@@ -23,25 +23,10 @@ async function deleteStock(req, res, next) {
         return next();
     }
 
-
-    const company = await Company.findOne({
-        symbol: req.params.symbol,
-        wallet: wallet._id
-    })
-
-    if(company == null) {
-        res.rawStatus = 400;
-        res.rawResponse = "This company is not in your wallet !";
-        return next();
-    }
-
     try {
-        await Company.findOneAndDelete({
-            wallet: wallet._id,
-            symbol: req.params.symbol
-        })
+        const companies = await Company.find({wallet: wallet._id})
         res.rawStatus = 200;
-        res.rawResponse = "Company deleted successfully !";
+        res.rawResponse = companies;
         return next();
     } catch(err) {
         res.rawStatus = 500;
@@ -50,4 +35,4 @@ async function deleteStock(req, res, next) {
     }
 }
 
-module.exports = deleteStock;
+module.exports = getWalletContent;

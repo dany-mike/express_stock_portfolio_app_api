@@ -47,6 +47,7 @@ async function register(req, res, next) {
     // Create a Wallet for this new User
     const wallet = new Wallet({
         walletName: req.body.username +"'s wallet",
+        description: `The first wallet of ${req.body.username}`,
         user: user._id,
     })
 
