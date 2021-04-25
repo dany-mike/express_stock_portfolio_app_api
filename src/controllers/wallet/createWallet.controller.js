@@ -3,7 +3,6 @@ const User = require('../../models/User.model')
 
 async function createWallet(req, res, next) {
     const user = await User.findOne({username: req.params.username})
-    console.log(user)
 
     if(!user) {
         res.rawStatus = 400

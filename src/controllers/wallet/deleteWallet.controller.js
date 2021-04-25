@@ -11,7 +11,6 @@ async function deleteWallet(req, res, next) {
     }
 
     const wallet = await Wallet.findOne({_id: req.params.walletId})
-    console.log(wallet)
 
     if(!wallet) {
         res.rawStatus = 400

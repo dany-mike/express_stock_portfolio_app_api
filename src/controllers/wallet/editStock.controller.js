@@ -25,6 +25,17 @@ async function editStock(req, res, next) {
         return next();
     }
 
+    const company = await Company.findOne({
+        symbol: req.params.symbol,
+        wallet: wallet._id
+    })
+
+    if(company == null) {
+        res.rawStatus = 400;
+        res.rawResponse = "This company is not in your wallet !";
+        return next();
+    }
+
 
     const stockPrice = await marketstack.get(`/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${req.params.symbol}`);
     const forecastPrice = await tipranksApi.getPriceTargets(req.params.symbol)

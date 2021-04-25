@@ -1,3 +1,4 @@
+const User = require('../../models/User.model')
 const Company = require('../../models/Company.model')
 const Wallet = require('../../models/Wallet.model');
 
@@ -22,6 +23,11 @@ async function deleteStock(req, res, next) {
         return next();
     }
 
+
+    const company = await Company.findOne({
+        symbol: req.params.symbol,
+        wallet: wallet._id
+    })
 
     if(company == null) {
         res.rawStatus = 400;
