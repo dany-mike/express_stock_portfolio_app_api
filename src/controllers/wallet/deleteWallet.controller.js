@@ -1,7 +1,7 @@
 const Wallet = require('../../models/Wallet.model')
 const User = require('../../models/User.model')
 
-async function editWallet(req, res, next) {
+async function deleteWallet(req, res, next) {
     const user = await User.findOne({username: req.params.username})
 
     if(!user) {
@@ -11,6 +11,7 @@ async function editWallet(req, res, next) {
     }
 
     const wallet = await Wallet.findOne({_id: req.params.walletId})
+    console.log(wallet)
 
     if(!wallet) {
         res.rawStatus = 400
@@ -23,15 +24,10 @@ async function editWallet(req, res, next) {
         user: user._id  
     };
 
-    const update = {
-        walletName: req.body.walletName,
-        description: req.body.description,
-    }
-
     try {
-        await Wallet.findOneAndUpdate(filter, update)
+        await Wallet.findOneAndDelete(filter)
         res.rawStatus = 200
-        res.rawResponse = "Wallet updated successfully !"
+        res.rawResponse = "Wallet deleted successfully !"
         return next()
     } catch(err) {
         res.rawStatus = 500
@@ -40,4 +36,4 @@ async function editWallet(req, res, next) {
     }
 }
 
-module.exports = editWallet
+module.exports = deleteWallet
