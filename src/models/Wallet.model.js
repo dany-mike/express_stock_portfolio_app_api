@@ -6,7 +6,11 @@ const walletSchema = new mongoose.Schema({
         required: true,
         max: 255,
         min: 6
-    }, 
+    },
+    description: {
+        type: String,
+        required: true
+    },
     user: {
         type: mongoose.Schema.Types.ObjectID,
         ref: "User"
