@@ -1,14 +1,12 @@
 const Wallet = require('../../models/Wallet.model');
 const Company = require('../../models/Company.model')
 
-async function getWalletByUserId(req, res, next) {
+async function getWalletsByUserId(req, res, next) {
 
     try {
-        const wallet = await Wallet.findOne({user: req.params.user_id})
-        const company = await Company.find({wallet: wallet._id})
+        const wallet = await Wallet.find({user: req.params.user_id})
         res.rawStatus = 200;
-        res.rawResponse = company;
-        console.log('test')
+        res.rawResponse = wallet;
         return next();
     } catch(err) {
         res.rawStatus = 500;
@@ -17,4 +15,4 @@ async function getWalletByUserId(req, res, next) {
     }
 }
 
-module.exports = getWalletByUserId;
+module.exports = getWalletsByUserId;
