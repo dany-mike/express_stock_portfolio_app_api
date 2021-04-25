@@ -20,18 +20,18 @@ router.patch('/edit-wallet/:username/:walletId', editWallet, serialization)
 router.delete('/delete-wallet/:username/:walletId', deleteWallet, serialization)
 
 // Get wallets by username
-router.get('/:username/',verify, getWalletsByUsername, serialization)
+router.get('/:username/', verify, getWalletsByUsername, serialization)
 
 // Watch the content of one wallet
 router.get('/:username/:walletId', getWalletContent, serialization)
 
 // Add into a wallet by username and wallet id
-router.post('/add-stock/:username/:walletId/:symbol',verify, addStockToWallet, serialization)
+router.post('/add-stock/:username/:walletId/:symbol', verify, addStockToWallet, serialization)
 
 // Update a wallet by user_id and wallet id
-router.patch('/edit-stock/:user_id/:symbol', verify, editStock, serialization)
+router.patch('/edit-stock/:username/:walletId/:symbol', verify, editStock, serialization)
 
-// Delete a wallet by user_id and wallet id
-router.delete('/delete-stock/:user_id/:symbol', verify, deleteStock ,serialization)
+// Delete a stock by username and wallet id
+router.delete('/delete-stock/:username/:walletId/:symbol', verify, deleteStock ,serialization)
 
 module.exports = router

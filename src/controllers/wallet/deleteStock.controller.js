@@ -3,9 +3,25 @@ const Wallet = require('../../models/Wallet.model');
 
 async function deleteStock(req, res, next) {
 
-    const wallet = await Wallet.findOne({user: req.params.user_id})
+    const user = await User.findOne({username: req.params.username})
 
-    const company = await Company.findOne({wallet: wallet._id})
+    if(!user) {
+        res.rawStatus = 400
+        res.rawResponse = `Username: ${req.params.username} does not exist`
+        return next();
+    }
+
+    const wallet = await Wallet.findOne({
+        user: user._id,
+        _id: req.params.walletId
+    })
+
+    if(!wallet) {
+        res.rawStatus = 400
+        res.rawResponse = `WalletId: ${req.params.walletId} does not exist`
+        return next();
+    }
+
 
     if(company == null) {
         res.rawStatus = 400;
