@@ -6,6 +6,7 @@ const deleteWallet = require('../controllers/wallet/deleteWallet.controller')
 const editStock = require('../controllers/wallet/editStock.controller')
 const editWallet = require('../controllers/wallet/editWallet.controller')
 const getWalletsByUsername = require('../controllers/wallet/getWalletsByUsername.controller')
+const getWalletContent = require('../controllers/wallet/getWalletContent.controller')
 const serialization = require('../middlewares/serialization.middleware')
 const verify = require('./verifyToken.route')
 
@@ -22,9 +23,10 @@ router.delete('/delete-wallet/:username/:walletId', deleteWallet, serialization)
 router.get('/:username/',verify, getWalletsByUsername, serialization)
 
 // Watch the content of one wallet
+router.get('/:username/:walletId', getWalletContent, serialization)
 
-// Add into a wallet by user_id and wallet id
-router.post('/add-stock/:user_id/:symbol',verify, addStockToWallet, serialization)
+// Add into a wallet by username and wallet id
+router.post('/add-stock/:username/:walletId/:symbol',verify, addStockToWallet, serialization)
 
 // Update a wallet by user_id and wallet id
 router.patch('/edit-stock/:user_id/:symbol', verify, editStock, serialization)
