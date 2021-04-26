@@ -9,6 +9,7 @@ const getWalletsByUsername = require('../controllers/wallet/getWalletsByUsername
 const getWalletContent = require('../controllers/wallet/getWalletContent.controller')
 const serialization = require('../middlewares/serialization.middleware')
 const verify = require('./verifyToken.route')
+const getWalletById = require('../controllers/wallet/getWalletById.controller')
 
 //Create a wallet 
 router.post('/add-wallet/:username', verify, createWallet, serialization)
@@ -21,6 +22,9 @@ router.delete('/delete-wallet/:username/:walletId', deleteWallet, serialization)
 
 // Get wallets by username
 router.get('/:username/', verify, getWalletsByUsername, serialization)
+
+// Get wallet by id
+router.get('/get-wallet/:username/:walletId', getWalletById, serialization)
 
 // Watch the content of one wallet
 router.get('/:username/:walletId', getWalletContent, serialization)
