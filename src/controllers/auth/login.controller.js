@@ -46,10 +46,10 @@ async function login(req, res, next) {
             expiresIn: '4h' // expires in four hours
         })
 
-        res.header('Authorization', `Bearer ${token}`)
-
+        res.header('Authorization', `${token}`)
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         res.rawStatus = 200;
-        res.rawResponse = token;
+        res.rawResponse = verified;
         return next();
 }
 
