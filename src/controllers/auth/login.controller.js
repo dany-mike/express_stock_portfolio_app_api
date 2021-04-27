@@ -1,4 +1,3 @@
-const validation  = require('../../utils/validation.util');
 const User = require('../../models/User.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -47,7 +46,7 @@ async function login(req, res, next) {
             expiresIn: '4h' // expires in four hours
         })
 
-        res.header('auth-token', token)
+        res.header('Authorization', `Bearer ${token}`)
 
         res.rawStatus = 200;
         res.rawResponse = token;
