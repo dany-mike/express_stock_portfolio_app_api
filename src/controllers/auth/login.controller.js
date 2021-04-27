@@ -46,11 +46,24 @@ async function login(req, res, next) {
             expiresIn: '4h' // expires in four hours
         })
 
-        res.header('Authorization', `${token}`)
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        res.rawStatus = 200;
-        res.rawResponse = verified;
-        return next();
+
+        const resObj = {
+            token: token,
+            userInfo: verified 
+        }
+
+        res.header('Authorization', `${token}`)
+
+        const cookieConfig = {
+            expires: new Date(new Date().getTime() + 14400 *1000),
+            httpOnly: true
+        }
+
+        res
+        .status(200)
+        .cookie("token", resObj.token, cookieConfig)
+        .send(verified)
 }
 
 module.exports = login
