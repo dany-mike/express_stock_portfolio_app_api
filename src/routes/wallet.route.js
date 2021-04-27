@@ -8,26 +8,26 @@ const editWallet = require('../controllers/wallet/editWallet.controller')
 const getWalletsByUsername = require('../controllers/wallet/getWalletsByUsername.controller')
 const getWalletContent = require('../controllers/wallet/getWalletContent.controller')
 const serialization = require('../middlewares/serialization.middleware')
-const verify = require('./verifyToken.route')
+const verify = require('../middlewares/verifyToken.middleware')
 const getWalletById = require('../controllers/wallet/getWalletById.controller')
 
 //Create a wallet 
 router.post('/add-wallet/:username', verify, createWallet, serialization)
 
 //Update a wallet
-router.patch('/edit-wallet/:username/:walletId', editWallet, serialization)
+router.patch('/edit-wallet/:username/:walletId', verify ,editWallet, serialization)
 
 //Delete a wallet
-router.delete('/delete-wallet/:username/:walletId', deleteWallet, serialization)
+router.delete('/delete-wallet/:username/:walletId', verify, deleteWallet, serialization)
 
 // Get wallets by username
 router.get('/:username/', verify, getWalletsByUsername, serialization)
 
 // Get wallet by id
-router.get('/get-wallet/:username/:walletId', getWalletById, serialization)
+router.get('/get-wallet/:username/:walletId', verify, getWalletById, serialization)
 
 // Watch the content of one wallet
-router.get('/:username/:walletId', getWalletContent, serialization)
+router.get('/:username/:walletId', verify, getWalletContent, serialization)
 
 // Add into a wallet by username and wallet id
 router.post('/add-stock/:username/:walletId/:symbol', verify, addStockToWallet, serialization)

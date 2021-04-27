@@ -16,7 +16,6 @@ async function getWalletById(req, res, next) {
             _id: req.params.walletId,
             user: user._id
         })
-        console.log(walletItem)
         res.rawStatus = 200;
         res.rawResponse = walletItem;
         return next();
