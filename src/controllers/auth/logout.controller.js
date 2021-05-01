@@ -1,6 +1,6 @@
 function logout(req, res, next) {
-    res.cookie('token', 'loggedout', {
-        expires: new Date(Date.now() + 10 * 1000),
+    res.cookie('token', '', {
+        expires: new Date(Date.now() + 10 * 1),
         httpOnly: true
     });
     res.status(200).send('user is logged out');

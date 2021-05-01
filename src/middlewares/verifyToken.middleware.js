@@ -5,6 +5,8 @@ function verifyToken(req, res, next) {
 
     const token = req.cookies.token;
 
+    res.header('Authorization', `${token}`)
+
     if(!token) {
         return res.status(401).send('Access denied you are not logged in');
     }

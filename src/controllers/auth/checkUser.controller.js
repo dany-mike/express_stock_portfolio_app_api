@@ -3,11 +3,11 @@ function checkUser(req, res) {
     const token = req.cookies.token;
 
     if(!token) {
-        return res.status(401).send(false);
+        return res.send(false);
     }
 
     try {
-        res.status(200).send(true)
+        res.send(true)
     } catch(err) {
         res.status(400).send(false);
     }

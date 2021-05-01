@@ -22,9 +22,7 @@ async function login(req, res, next) {
 
     }
 
-
     // Check Password
-
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
     if(!validPassword) {
@@ -49,8 +47,6 @@ async function login(req, res, next) {
             token: token,
             userInfo: verified 
         }
-
-        // res.header('Authorization', `${token}`)
 
         const cookieConfig = {
             expires: new Date(new Date().getTime() + 14400 *1000),
