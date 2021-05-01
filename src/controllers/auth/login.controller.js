@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 async function login(req, res, next) {
 
-    // Check if the email exists
+    // Check if the email and username exists
     const user = await User.findOne({email: req.body.email});
     if(!user) {
 
@@ -20,13 +20,10 @@ async function login(req, res, next) {
             return next();
         }
 
-        res.rawStatus = 400;
-        res.rawResponse = "Email or password is not correct";
-        return next();
     }
 
-    // Check Password
 
+    // Check Password
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
@@ -53,15 +50,13 @@ async function login(req, res, next) {
             userInfo: verified 
         }
 
-        res.header('Authorization', `${token}`)
+        // res.header('Authorization', `${token}`)
 
         const cookieConfig = {
             expires: new Date(new Date().getTime() + 14400 *1000),
             httpOnly: true
         }
-
         res
-        .status(200)
         .cookie("token", resObj.token, cookieConfig)
         .send(verified)
 }

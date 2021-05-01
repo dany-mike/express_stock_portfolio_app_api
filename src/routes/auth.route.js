@@ -5,7 +5,8 @@ const serialization = require('../middlewares/serialization.middleware');
 const verify = require('../middlewares/verifyToken.middleware');
 const updatePassword = require('../controllers/auth/updatePassword.controller');
 const deleteUser = require('../controllers/auth/deleteUser.controller');
-const getUser = require('../controllers/auth/getUser.controller')
+const checkUser = require('../controllers/auth/checkUser.controller');
+const getUser = require('../controllers/auth/getUser.controller');
 
 router.post('/register', register, serialization)
 
@@ -15,6 +16,8 @@ router.patch('/update-password/:username', verify, updatePassword, serialization
 
 router.delete('/delete-user/:username', verify, deleteUser, serialization);
 
-router.get('/get-username/:id', getUser ,serialization)
+router.get('/get-user/:id', getUser, serialization)
+
+router.get('/check', checkUser);
 
 module.exports = router

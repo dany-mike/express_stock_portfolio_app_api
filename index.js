@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
+
 const cookieParser = require('cookie-parser')
+
+// Cookie Parser
+app.use(cookieParser())
 
 
 if(process.env.NODE_ENV !== 'production') {
@@ -10,9 +14,6 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 const dbConnection = require('./src/utils/db.util');
-
-// Cookie Parser
-app.use(cookieParser())
 
 // Data Parsing
 app.use(express.json());

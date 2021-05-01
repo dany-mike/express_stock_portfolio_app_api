@@ -1,14 +1,13 @@
 const User = require('../../models/User.model');
 
-async function deleteUser(req, res, next) {
+async function getUser(req, res, next) {
 
     // Check if the username exists
     const user = await User.findOne({_id: req.params.id});
-    console.log(user)
 
     if(!user) {
         res.rawStatus = 500;
-        res.rawResponse = "Username does not exists";
+        res.rawResponse = "User does not exists";
         return next();
     }
 
@@ -23,4 +22,4 @@ async function deleteUser(req, res, next) {
     }
 }
 
-module.exports = deleteUser
+module.exports = getUser
