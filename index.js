@@ -3,6 +3,12 @@ const app = express();
 
 const cors = require('cors');
 
+const cookieParser = require('cookie-parser')
+
+// Cookie Parser
+app.use(cookieParser())
+
+
 if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
@@ -12,8 +18,8 @@ const dbConnection = require('./src/utils/db.util');
 // Data Parsing
 app.use(express.json());
 
-// Allow access-control-allow-origin
-app.use(cors());
+// Allow access-control-allow-origin origin === client localhost 
+app.use(cors({credentials: true, origin: `http://localhost:${process.env.PORT_FRONT}`}));
 
 // DB connection
 dbConnection();

@@ -1,46 +1,60 @@
-const validation  = require('../../utils/validation.util');
 const User = require('../../models/User.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 async function login(req, res, next) {
 
-    // Validation
-    const validate = await validation.loginValidation(req.body);
-
-    if(validate.error) {
-        res.rawStatus = 400;
-        res.rawResponse = validate.error.details[0].message;
-        return next();
-    }
-
-    // Check if the email exists
+    // Check if the email and username exists
     const user = await User.findOne({email: req.body.email});
     if(!user) {
-        res.rawStatus = 400;
-        res.rawResponse = "Email or password is wrong";
-        return next();
+
+        if(req.body.email === "") {
+            res.rawStatus = 400;
+            res.rawResponse = "Email field is required";
+            return next();
+        }
+
+        if(req.body.password === "") {
+            res.rawStatus = 400;
+            res.rawResponse = "Password field is required";
+            return next();
+        }
+
     }
 
     // Check Password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
     if(!validPassword) {
-        res.rawStatus = 400;
-        res.rawResponse = "Email or password is wrong";
-        return next();
+        if(req.body.password !== "") {
+            res.rawStatus = 400;
+            res.rawResponse = "Email or password is not correct";
+            return next();
+        } else {
+            res.rawStatus = 400;
+            res.rawResponse = "Password field is required";
+            return next();
+        }     
     }
+        // Create and add a token
+        const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+            expiresIn: '4h' // expires in four hours
+        })
 
-    // Create and add a token
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
-        expiresIn: '4h' // expires in four hours
-    })
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
 
-    res.header('auth-token', token).send(token)
+        const resObj = {
+            token: token,
+            userInfo: verified 
+        }
 
-    res.rawStatus = 200;
-    res.rawResponse = "Logged in!";
-    return next();
+        const cookieConfig = {
+            expires: new Date(new Date().getTime() + 14400 *1000),
+            httpOnly: true
+        }
+        res
+        .cookie("token", resObj.token, cookieConfig)
+        .send(verified)
 }
 
 module.exports = login
