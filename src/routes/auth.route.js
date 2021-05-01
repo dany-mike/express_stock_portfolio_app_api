@@ -7,6 +7,7 @@ const updatePassword = require('../controllers/auth/updatePassword.controller');
 const deleteUser = require('../controllers/auth/deleteUser.controller');
 const checkUser = require('../controllers/auth/checkUser.controller');
 const getUser = require('../controllers/auth/getUser.controller');
+const logout = require('../controllers/auth/logout.controller');
 
 router.post('/register', register, serialization)
 
@@ -19,5 +20,7 @@ router.delete('/delete-user/:username', verify, deleteUser, serialization);
 router.get('/get-user/:id', getUser, serialization)
 
 router.get('/check', checkUser);
+
+router.get('/logout', logout)
 
 module.exports = router
