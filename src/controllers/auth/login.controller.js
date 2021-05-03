@@ -19,7 +19,6 @@ async function login(req, res, next) {
             res.rawResponse = "Password field is required";
             return next();
         }
-
     }
 
     // Check Password

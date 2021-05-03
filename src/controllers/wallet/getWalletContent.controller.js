@@ -24,7 +24,6 @@ async function getWalletContent(req, res, next) {
     }
 
     try {
-        console.log('ok')
         const companies = await Company.find({wallet: wallet._id})
         res.rawStatus = 200;
         res.rawResponse = companies;
