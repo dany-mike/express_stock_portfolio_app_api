@@ -58,6 +58,6 @@ app.use('/wallet', walletRoute);
 // Search Route 
 app.use('/search', searchRoute)
 
-app.listen(process.env.PORT, 'localhost', () => {
+app.listen(process.env.PORT || 3000, 'localhost', () => {
     console.log('started');
 })
