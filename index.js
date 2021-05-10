@@ -33,6 +33,10 @@ const walletRoute = require('./src/routes/wallet.route');
 const searchRoute = require('./src/routes/search.route');
 const stockRoute = require('./src/routes/stock.route')
 
+app.get('/', (req, res) => {
+    res.send("It works !")
+})
+
 //Stock endpoints
 app.use('/stock', stockRoute)
 
