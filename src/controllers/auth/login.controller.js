@@ -49,7 +49,7 @@ async function login(req, res, next) {
 
         const cookieConfig = {
             expires: new Date(new Date().getTime() + 14400 *1000),
-            httpOnly: true
+            httpOnly: true,
         }
         res
         .cookie("token", resObj.token, cookieConfig)
