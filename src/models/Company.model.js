@@ -26,7 +26,6 @@ const companySchema = new mongoose.Schema({
         type: String,
     },
     forecastPrice: {
-        type: Number,
     },
     activityArea: {
         type: String,
