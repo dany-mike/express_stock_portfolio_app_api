@@ -1,8 +1,8 @@
-const Wallet = require('../../models/Wallet.model');
 const User = require('../../models/User.model')
 const Company = require('../../models/Company.model')
+const Wallet = require('../../models/Wallet.model');
 
-async function getWalletContent(req, res, next) {
+async function getStockById(req, res, next) {
 
     const user = await User.findOne({username: req.params.username})
 
@@ -23,17 +23,31 @@ async function getWalletContent(req, res, next) {
         return next();
     }
 
+
+    const company = await Company.findOne({
+        symbol: req.params.symbol,
+        wallet: wallet._id
+    })
+
+    if(company == null) {
+        res.rawStatus = 400;
+        res.rawResponse = "This company is not in your wallet !";
+        return next();
+    }
+
     try {
-        const companies = await Company.find({wallet: wallet._id})
+        const company = await Company.findOne({
+            wallet: wallet._id,
+            symbol: req.params.symbol
+        })
         res.rawStatus = 200;
-        res.rawResponse = companies;
+        res.rawResponse = company;
         return next();
     } catch(err) {
-        console.log('error')
         res.rawStatus = 500;
         res.rawResponse = err.message;
         return next();
     }
 }
 
-module.exports = getWalletContent;
+module.exports = getStockById;

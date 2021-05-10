@@ -7,9 +7,9 @@ function verifyToken(req, res, next) {
 
     res.header('Authorization', `${token}`)
 
-    if(!token) {
-        return res.status(401).send('Access denied you are not logged in');
-    }
+    // if(!token) {
+    //     return res.status(401).send('Access denied you are not logged in');
+    // }
 
     try {
         jwt.verify(token, process.env.TOKEN_SECRET);

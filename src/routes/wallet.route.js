@@ -10,6 +10,7 @@ const getWalletContent = require('../controllers/wallet/getWalletContent.control
 const serialization = require('../middlewares/serialization.middleware')
 const verify = require('../middlewares/verifyToken.middleware')
 const getWalletById = require('../controllers/wallet/getWalletById.controller')
+const getStockById = require('../controllers/wallet/getStockById.controller')
 
 //Create a wallet 
 router.post('/add-wallet/:username', verify, createWallet, serialization)
@@ -29,13 +30,16 @@ router.get('/get-wallet/:username/:walletId', verify, getWalletById, serializati
 // Watch the content of one wallet
 router.get('/:username/:walletId', verify, getWalletContent, serialization)
 
-// Add into a wallet by username and wallet id
+// Get stock into a wallet by username wallet id and symbol
+router.get('/get-stock/:username/:walletId/:symbol', verify, getStockById, serialization)
+
+// Add stock into a wallet by username wallet id and symbol
 router.post('/add-stock/:username/:walletId/:symbol', verify, addStockToWallet, serialization)
 
-// Update a wallet by user_id and wallet id
+// Update a stock username and wallet id and symbol
 router.patch('/edit-stock/:username/:walletId/:symbol', verify, editStock, serialization)
 
-// Delete a stock by username and wallet id
+// Delete a stock by username walletId and symbol
 router.delete('/delete-stock/:username/:walletId/:symbol', verify, deleteStock ,serialization)
 
 module.exports = router

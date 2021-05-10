@@ -30,6 +30,11 @@ const forecastRoute = require('./src/routes/forecast.route');
 const marketstackRoute = require('./src/routes/marketstack.route');
 const financialModelingRoute = require('./src/routes/financialmodeling.route');
 const walletRoute = require('./src/routes/wallet.route');
+const searchRoute = require('./src/routes/search.route');
+const stockRoute = require('./src/routes/stock.route')
+
+//Stock endpoints
+app.use('/stock', stockRoute)
 
 // Auth endpoints
 app.use('/user', authRoute);
@@ -45,6 +50,9 @@ app.use('/fm-api', financialModelingRoute);
 
 // Wallet Route
 app.use('/wallet', walletRoute);
+
+// Search Route 
+app.use('/search', searchRoute)
 
 app.listen(process.env.PORT, 'localhost', () => {
     console.log('started');
