@@ -9,9 +9,7 @@ const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
 
-if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
+require('dotenv').config();
 
 const dbConnection = require('./src/utils/db.util');
 
