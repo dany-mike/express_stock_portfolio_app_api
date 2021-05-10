@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: `http://localhost:${process.env.PORT_FRONT}/`,
+    origin: `http://localhost:${process.env.PORT_FRONT}`,
   })
 );
 
