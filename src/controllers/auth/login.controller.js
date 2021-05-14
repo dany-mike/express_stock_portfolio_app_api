@@ -44,7 +44,7 @@ async function login(req, res, next) {
 
         const resObj = {
             token: token,
-            userInfo: verified 
+            userInfo: verified
         }
 
         const cookieConfig = {
@@ -52,6 +52,7 @@ async function login(req, res, next) {
             httpOnly: true,
             secure: true
         }
+
         res
         .cookie("token", resObj.token, cookieConfig)
         .send(verified)

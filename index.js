@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+app.set('trust proxy', 1)
+
 
 const cors = require("cors");
 
@@ -24,7 +26,6 @@ app.use(
   })
 );
 
-app.set('trust proxy', true)
 
 // DB connection
 dbConnection();
