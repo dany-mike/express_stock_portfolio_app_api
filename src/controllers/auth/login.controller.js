@@ -44,13 +44,16 @@ async function login(req, res, next) {
 
         const resObj = {
             token: token,
-            userInfo: verified 
+            userInfo: verified
         }
 
         const cookieConfig = {
-            expires: new Date(new Date().getTime() + 14400 *1000),
-            httpOnly: true
+            path: '/',
+            expires: new Date(new Date().getTime() + 14400 *1000 *24),
+            httpOnly: true,
+            secure: true
         }
+
         res
         .cookie("token", resObj.token, cookieConfig)
         .send(verified)

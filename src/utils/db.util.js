@@ -8,7 +8,7 @@ function dbConnection () {
     connexion.once('open', ()=> {
     console.log('Mongo db connection established successfully');
     })
+
 }
 
 module.exports = dbConnection
-
