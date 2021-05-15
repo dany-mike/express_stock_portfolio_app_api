@@ -3,8 +3,16 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.set('trust proxy', 1)
 
+const cron = require('node-cron');
+const updateAllStocks = require ("./src/utils/updateAllStocks.util")
 
-const cors = require("cors");
+cron.schedule('*/10 * * * *', () => {
+  updateAllStocks();
+}, {
+  scheduled: true,
+});
+
+const cors = require('cors');
 
 const cookieParser = require("cookie-parser");
 
@@ -38,10 +46,14 @@ const financialModelingRoute = require("./src/routes/financialmodeling.route");
 const walletRoute = require("./src/routes/wallet.route");
 const searchRoute = require("./src/routes/search.route");
 const stockRoute = require("./src/routes/stock.route");
+const favoriteRoute = require('./src/routes/favorite.route')
 
 app.get("/", (req, res) => {
   res.send("It works !");
 });
+
+// Favorite endpoints
+app.use("/favorite", favoriteRoute);
 
 //Stock endpoints
 app.use("/stock", stockRoute);
