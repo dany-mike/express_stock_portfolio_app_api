@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 
+const cron = require('node-cron');
+const updateAllStocks = require ("./src/utils/updateAllStocks.util")
+
+cron.schedule('*/10 * * * *', () => {
+  updateAllStocks();
+}, {
+  scheduled: true,
+});
+
 const cors = require('cors');
 
 const cookieParser = require('cookie-parser')
