@@ -64,6 +64,7 @@ app.use("/wallet", walletRoute);
 // Search Route
 app.use("/search", searchRoute);
 
-app.listen(port, "0.0.0.0", function () {
-  console.log("Listening");
-});
+app.listen(3000, 'localhost', () => {
+    console.log('started');
+})
+
