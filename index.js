@@ -14,8 +14,6 @@ cron.schedule('*/10 * * * *', () => {
 
 const cors = require('cors');
 
-const cors = require("cors");
-
 const cookieParser = require("cookie-parser");
 
 // Cookie Parser
@@ -48,10 +46,14 @@ const financialModelingRoute = require("./src/routes/financialmodeling.route");
 const walletRoute = require("./src/routes/wallet.route");
 const searchRoute = require("./src/routes/search.route");
 const stockRoute = require("./src/routes/stock.route");
+const favoriteRoute = require('./src/routes/favorite.route')
 
 app.get("/", (req, res) => {
   res.send("It works !");
 });
+
+// Favorite endpoints
+app.use("/favorite", favoriteRoute);
 
 //Stock endpoints
 app.use("/stock", stockRoute);
