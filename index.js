@@ -48,14 +48,10 @@ const walletRoute = require("./src/routes/wallet.route");
 const searchRoute = require("./src/routes/search.route");
 const stockRoute = require("./src/routes/stock.route");
 const favoriteRoute = require("./src/routes/favorite.route");
-const twilioRoute = require("./src/routes/twilio.route");
 
 app.get("/", (req, res) => {
   res.send("It works !");
 });
-
-// Twilio endpoints
-app.use('/twilio', twilioRoute)
 
 // Favorite endpoints
 app.use("/favorite", favoriteRoute);

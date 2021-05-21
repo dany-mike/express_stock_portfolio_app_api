@@ -1,5 +1,5 @@
 function checkUser(req, res) {
-    const token = req.cookies.token;
+    const token = req.header.authorization;
 
     if(!token) {
         return res.send(false);
