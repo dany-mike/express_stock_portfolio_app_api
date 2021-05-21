@@ -5,8 +5,6 @@ async function updateAllStocks() {
 
   const companies = Company.find();
 
-  console.log("update all stocks")
-
   for await (const company of companies) {
     const stockPrice = await marketstack.get(
       `/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${company.symbol}`

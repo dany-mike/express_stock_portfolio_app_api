@@ -53,10 +53,13 @@ async function login(req, res, next) {
             httpOnly: true,
             secure: true
         }
-
+        const body = [
+            {token: resObj.token},
+            {verified: verified}
+        ]
         res
-        .cookie("token", resObj.token, cookieConfig)
-        .send(verified)
+        // .cookie("token", resObj.token, cookieConfig)
+        .send(body)
 }
 
 module.exports = login

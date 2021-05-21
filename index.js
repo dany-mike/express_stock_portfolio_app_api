@@ -1,18 +1,20 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
-app.set('trust proxy', 1)
+
+// app.set('trust proxy', 1)
 
 const cron = require('node-cron');
 const updateAllStocks = require ("./src/utils/updateAllStocks.util")
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('0 9 * * *', () => {
   updateAllStocks();
 }, {
   scheduled: true,
+  timezone:"America/New_York"
 });
 
-const cors = require('cors');
+
+const cors = require("cors");
 
 const cookieParser = require("cookie-parser");
 
@@ -34,7 +36,6 @@ app.use(
   })
 );
 
-
 // DB connection
 dbConnection();
 
@@ -46,11 +47,15 @@ const financialModelingRoute = require("./src/routes/financialmodeling.route");
 const walletRoute = require("./src/routes/wallet.route");
 const searchRoute = require("./src/routes/search.route");
 const stockRoute = require("./src/routes/stock.route");
-const favoriteRoute = require('./src/routes/favorite.route')
+const favoriteRoute = require("./src/routes/favorite.route");
+const twilioRoute = require("./src/routes/twilio.route");
 
 app.get("/", (req, res) => {
   res.send("It works !");
 });
+
+// Twilio endpoints
+app.use('/twilio', twilioRoute)
 
 // Favorite endpoints
 app.use("/favorite", favoriteRoute);
@@ -76,7 +81,8 @@ app.use("/wallet", walletRoute);
 // Search Route
 app.use("/search", searchRoute);
 
-app.listen(3000, 'localhost', () => {
+
+app.listen(process.env.PORT || 3000, 'localhost', () => {
     console.log('started');
 })
 
