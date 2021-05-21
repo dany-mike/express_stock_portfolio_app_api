@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const port = process.env.PORT || 3000;
 // app.set('trust proxy', 1)
 
 const cron = require('node-cron');
@@ -82,7 +82,7 @@ app.use("/wallet", walletRoute);
 app.use("/search", searchRoute);
 
 
-app.listen(process.env.PORT || 3000, 'localhost', () => {
-    console.log('started');
-})
+app.listen(port, "0.0.0.0", function () {
+  console.log("Listening");
+});
 
