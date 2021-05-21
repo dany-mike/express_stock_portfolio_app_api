@@ -35,7 +35,7 @@ async function addStockToWallet(req, res, next) {
 
     const isInMyWallet = await Company.find({wallet: wallet._id})
 
-    for (const wallet of isInMyWallet) {
+    for await (const wallet of isInMyWallet) {
         if(wallet.companyName == companyName[0].companyName) {
             res.rawResponse = "You already have this company in your wallet !"
             res.rawStatus = 400
@@ -61,8 +61,8 @@ async function addStockToWallet(req, res, next) {
         res.rawResponse = "Company saved into the wallet successfully";
         return next();
     } catch(err) {
-        res.rawStatus = 500;
-        res.rawResponse = err.message;
+        res.rawStatus = 400;
+        res.rawResponse = "An error occured";
         return next();
     }
 }
