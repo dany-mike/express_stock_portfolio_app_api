@@ -1,19 +1,18 @@
 const express = require("express");
 const app = express();
-app.set("trust proxy", 1);
 
-const cron = require("node-cron");
-const updateAllStocks = require("./src/utils/updateAllStocks.util");
+// app.set('trust proxy', 1)
 
-cron.schedule(
-  "*/10 * * * *",
-  () => {
-    updateAllStocks();
-  },
-  {
-    scheduled: true,
-  }
-);
+const cron = require('node-cron');
+const updateAllStocks = require ("./src/utils/updateAllStocks.util")
+
+cron.schedule('0 9 * * *', () => {
+  updateAllStocks();
+}, {
+  scheduled: true,
+  timezone:"America/New_York"
+});
+
 
 const cors = require("cors");
 
@@ -82,6 +81,8 @@ app.use("/wallet", walletRoute);
 // Search Route
 app.use("/search", searchRoute);
 
-app.listen(3000, "localhost", () => {
-  console.log("started");
-});
+
+app.listen(process.env.PORT || 3000, 'localhost', () => {
+    console.log('started');
+})
+
