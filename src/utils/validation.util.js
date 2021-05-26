@@ -7,7 +7,6 @@ function registerValidation(data) {
         username: Joi.string().min(6).required(),
         email: Joi.string().email().min(6).required(),
         password: Joi.string().min(6).required(),
-        phone: Joi.string().min(9).required(),
     })
 
     // Set data in schema

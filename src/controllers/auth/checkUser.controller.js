@@ -1,7 +1,7 @@
 function checkUser(req, res) {
-    const token = req.header.authorization;
+    const token = req.headers.authorization;
 
-    if(!token) {
+    if(token === '' || !token) {
         return res.send(false);
     }
     try {

@@ -42,7 +42,6 @@ async function register(req, res, next) {
         username: req.body.username,
         email: req.body.email,
         password: hashedPassword,
-        phone: `+33${req.body.phone}`
     });
 
     // Create a Wallet for this new User

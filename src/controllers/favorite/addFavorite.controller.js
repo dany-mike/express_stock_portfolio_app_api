@@ -3,6 +3,7 @@ const Favorite = require("../../models/Favorite.model");
 const marketstack = require("../../services/marketstack.service.js");
 const financialModeling = require("../../services/financialModeling.service");
 const tipranksApi = require("tipranks-api-v2");
+const nodemailer = require("nodemailer");
 
 async function addFavorite(req, res, next) {
   const user = await User.findOne({ username: req.params.username });
@@ -45,6 +46,29 @@ async function addFavorite(req, res, next) {
     activityArea: companyName[0].industry,
     forecastPrice: forecastPrice.priceTargets.mean,
     user: user._id,
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: `${process.env.EMAIL_NODEMAILER}`,
+      pass: `${process.env.PASSWORD_NODEMAILER}`
+    }
+  });
+  
+  const mailOptions = {
+    from: `${process.env.EMAIL_NODEMAILER}`,
+    to: `${user.email}`,
+    subject: `${companyName[0].companyName} stock has been added to your favorites`,
+    text: 'That was easy!'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
   });
 
   try {
