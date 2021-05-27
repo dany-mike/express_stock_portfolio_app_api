@@ -9,16 +9,10 @@ async function updateAllStocks() {
     const stockPrice = await marketstack.get(
       `/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${company.symbol}`
     );
-    const forecastPrice = await tipranksApi
-      .getPriceTargets(company.symbol)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => console.log(error));
+
 
     const update = {
       stockPrice: stockPrice.data[0].open,
-      forecastPrice: forecastPrice.priceTargets.mean,
     };
 
     const filter = {

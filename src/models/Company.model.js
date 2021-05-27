@@ -25,8 +25,6 @@ const companySchema = new mongoose.Schema({
     about: {
         type: String,
     },
-    forecastPrice: {
-    },
     activityArea: {
         type: String,
         max: 255,

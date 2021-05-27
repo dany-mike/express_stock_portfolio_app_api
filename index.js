@@ -55,7 +55,6 @@ dbConnection();
 
 // Routes Import
 const authRoute = require("./src/routes/auth.route");
-const forecastRoute = require("./src/routes/forecast.route");
 const marketstackRoute = require("./src/routes/marketstack.route");
 const financialModelingRoute = require("./src/routes/financialmodeling.route");
 const walletRoute = require("./src/routes/wallet.route");
@@ -75,9 +74,6 @@ app.use("/stock", stockRoute);
 
 // Auth endpoints
 app.use("/user", authRoute);
-
-// Forecast endpoints
-app.use("/forecast", forecastRoute);
 
 // Marketstack endpoints
 app.use("/marketstack", marketstackRoute);

@@ -5,7 +5,6 @@ async function sendDailyNotif() {
   const User = require("../models/User.model");
 
   const marketstack = require("../services/marketstack.service");
-  const tipranksApi = require("tipranks-api-v2");
 
   const favorites = await Favorite.find();
 
@@ -17,13 +16,6 @@ async function sendDailyNotif() {
     const stockPrice = await marketstack.get(
       `/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${favorite.symbol}`
     );
-
-    const forecastPrice = await tipranksApi
-      .getPriceTargets(favorite.symbol)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => console.log(error));
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -40,14 +32,9 @@ async function sendDailyNotif() {
       html: `<p>Hello ${user.username},</p>
             <p>Today ${favorite.symbol} price share at the open was 
             $${stockPrice.data[0].open}</p>
-            <p>The ${
+            <p>You'll receive a report of the ${
               favorite.symbol
-            } forecast price for one year is $${forecastPrice.priceTargets.mean.toFixed(
-        2
-      )}</p>
-            <p>You'll receive a daily report of the ${
-              favorite.symbol
-            } stock price and stock forecast</p>
+            } stock price everyday</p>
             <p>Remove ${
               favorite.symbol
             } of your favorites to stop receiving daily report</p>`,

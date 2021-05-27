@@ -26,8 +26,6 @@ const favoriteSchema = new mongoose.Schema({
         max: 255,
         min: 6
     },
-    forecastPrice: {
-    },
     user: {
         type: mongoose.Schema.Types.ObjectID,
         ref: "User"

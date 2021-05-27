@@ -28,10 +28,6 @@ async function addStockToWallet(req, res, next) {
 
     const stockPrice = await marketstack.get(`/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${req.params.symbol}`);
     const companyName = await financialModeling.get(`/profile/${req.params.symbol}?apikey=${process.env.API_KEY_FINANCIAL_MODELING}`)
-    const forecastPrice = await tipranksApi.getPriceTargets(req.params.symbol)
-    .then(response => {
-        return response
-    }).catch(error => console.log(error))
 
     const isInMyWallet = await Company.find({wallet: wallet._id})
 
@@ -52,7 +48,6 @@ async function addStockToWallet(req, res, next) {
         about: companyName[0].description,
         activityArea: companyName[0].industry,
         wallet: wallet._id,
-        forecastPrice: forecastPrice.priceTargets.mean,
     });
 
     try {

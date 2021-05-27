@@ -20,12 +20,7 @@ async function addFavorite(req, res, next) {
   const companyName = await financialModeling.get(
     `/profile/${req.params.symbol}?apikey=${process.env.API_KEY_FINANCIAL_MODELING}`
   );
-  const forecastPrice = await tipranksApi
-    .getPriceTargets(req.params.symbol)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => console.log(error));
+
 
   const isFav = await Favorite.find({ user: user._id });
 
@@ -44,7 +39,6 @@ async function addFavorite(req, res, next) {
     stockPrice: stockPrice.data[0].open,
     about: companyName[0].description,
     activityArea: companyName[0].industry,
-    forecastPrice: forecastPrice.priceTargets.mean,
     user: user._id,
   });
 
@@ -63,8 +57,7 @@ async function addFavorite(req, res, next) {
     html: `<p>Hello ${req.params.username},</p>
     <p>Today ${req.params.symbol} price share at the open was 
     $${stockPrice.data[0].open}</p>
-    <p>The ${req.params.symbol} forecast price for one year is $${forecastPrice.priceTargets.mean.toFixed(2)}</p>
-    <p>You'll receive a daily report of the ${req.params.symbol} stock price and stock forecast</p>
+    <p>You'll receive a report of the ${req.params.symbol} stock price everyday at 9:05 (NYC)</p>
     <p>Remove ${req.params.symbol} of your favorites to stop receiving daily report</p>`
   };
 
