@@ -3,7 +3,7 @@ async function updateAllStocks() {
   const marketstack = require("../services/marketstack.service");
   const tipranksApi = require("tipranks-api-v2");
 
-  const companies = Company.find();
+  const companies = await Company.find();
 
   for await (const company of companies) {
     const stockPrice = await marketstack.get(

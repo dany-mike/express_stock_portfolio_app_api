@@ -60,7 +60,12 @@ async function addFavorite(req, res, next) {
     from: `${process.env.EMAIL_NODEMAILER}`,
     to: `${user.email}`,
     subject: `${companyName[0].companyName} stock has been added to your favorites`,
-    text: 'That was easy!'
+    html: `<p>Hello ${req.params.username},</p>
+    <p>Today ${req.params.symbol} price share at the open was 
+    $${stockPrice.data[0].open}</p>
+    <p>The ${req.params.symbol} forecast price for one year is $${forecastPrice.priceTargets.mean.toFixed(2)}</p>
+    <p>You'll receive a daily report of the ${req.params.symbol} stock price and stock forecast</p>
+    <p>Remove ${req.params.symbol} of your favorites to stop receiving daily report</p>`
   };
 
   transporter.sendMail(mailOptions, function(error, info){
