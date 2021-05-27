@@ -1,7 +1,6 @@
 async function updateAllStocks() {
   const Company = require("../models/Company.model");
   const marketstack = require("../services/marketstack.service");
-  const tipranksApi = require("tipranks-api-v2");
 
   const companies = await Company.find();
 
@@ -9,7 +8,6 @@ async function updateAllStocks() {
     const stockPrice = await marketstack.get(
       `/eod?access_key=${process.env.API_KEY_MARKETSTACK}&symbols=${company.symbol}`
     );
-
 
     const update = {
       stockPrice: stockPrice.data[0].open,

@@ -2,7 +2,6 @@ const User = require('../../models/User.model')
 const Company = require('../../models/Company.model')
 const Wallet = require('../../models/Wallet.model')
 const marketstack = require('../../services/marketstack.service.js')
-const tipranksApi = require('tipranks-api-v2')
 
 async function editStock(req, res, next) {
 

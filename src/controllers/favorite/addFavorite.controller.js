@@ -2,7 +2,6 @@ const User = require("../../models/User.model");
 const Favorite = require("../../models/Favorite.model");
 const marketstack = require("../../services/marketstack.service.js");
 const financialModeling = require("../../services/financialModeling.service");
-const tipranksApi = require("tipranks-api-v2");
 const nodemailer = require("nodemailer");
 
 async function addFavorite(req, res, next) {
