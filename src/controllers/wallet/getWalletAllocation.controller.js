@@ -200,9 +200,6 @@ async function getWalletAllocation(req, res, next) {
     // API response
     const arrayAllocation = [
       {
-        totalInvested,
-      },
-      {
         sectorName: "IndexFund",
         indexFundInvested,
         investPerc: calculatePercentage(totalInvested, indexFundInvested).toFixed(2)
@@ -265,7 +262,7 @@ async function getWalletAllocation(req, res, next) {
     ];
 
     res.rawStatus = 200;
-    res.rawResponse = arrayAllocation;
+    res.rawResponse = {arrayAllocation, totalInvested};
     return next();
   } catch (err) {
     console.log("error");
