@@ -18,7 +18,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "5 9 * * *",
+  "0 * * * *",
   () => {
     sendDailyNotif();
   },
