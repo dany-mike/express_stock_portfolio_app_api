@@ -203,50 +203,62 @@ async function getWalletAllocation(req, res, next) {
         totalInvested,
       },
       {
+        sectorName: "IndexFund",
         indexFundInvested,
         investPerc: calculatePercentage(totalInvested, indexFundInvested).toFixed(2)
       },
       {
+        sectorName: "Health Care",
         healthCareInvested,
         investPerc: calculatePercentage(totalInvested, healthCareInvested).toFixed(2)
       },
       {
+        sectorName: "Financials",
         financialsInvested,
         investPerc: calculatePercentage(totalInvested, financialsInvested).toFixed(2)
       },
       {
+        sectorName: "Utilities",
         utilities,
         investPerc: calculatePercentage(totalInvested, utilities).toFixed(2)
       },
       {
+        sectorName: "Materials",
         materials,
         investPerc: calculatePercentage(totalInvested, materials).toFixed(2)
       },
       {
+        sectorName: "Consumer Discretionary",
         consumerDiscretionary,
         investPerc: calculatePercentage(totalInvested, consumerDiscretionary).toFixed(2)
       },
       {
+        sectorName: "Consumer Staples",
         consumerStaplesInvested,
         investPerc: calculatePercentage(totalInvested, consumerStaplesInvested).toFixed(2)
       },
       {
+        sectorName: "Industrials",
         industrialsInvested,
         investPerc: calculatePercentage(totalInvested, industrialsInvested).toFixed(2)
       },
       {
+        sectorName: "Real Estate",
         realEstate,
         investPerc: calculatePercentage(totalInvested, realEstate).toFixed(2)
       },
       {
+        sectorName: "Information Technology",
         informationTechnology,
         investPerc: calculatePercentage(totalInvested, informationTechnology).toFixed(2)
       },
       {
+        sectorName: "Energy",
         energy,
         investPerc: calculatePercentage(totalInvested, energy).toFixed(2)
       },
       {
+        sectorName: "Communication Services",
         communicationServices,
         investPerc: calculatePercentage(totalInvested, communicationServices).toFixed(2)
       },
