@@ -201,62 +201,62 @@ async function getWalletAllocation(req, res, next) {
     const arrayAllocation = [
       {
         sectorName: "IndexFund",
-        indexFundInvested,
+        moneyInvested: indexFundInvested,
         investPerc: calculatePercentage(totalInvested, indexFundInvested).toFixed(2)
       },
       {
         sectorName: "Health Care",
-        healthCareInvested,
+        moneyInvested: healthCareInvested,
         investPerc: calculatePercentage(totalInvested, healthCareInvested).toFixed(2)
       },
       {
         sectorName: "Financials",
-        financialsInvested,
+        moneyInvested: financialsInvested,
         investPerc: calculatePercentage(totalInvested, financialsInvested).toFixed(2)
       },
       {
         sectorName: "Utilities",
-        utilities,
+        moneyInvested: utilities,
         investPerc: calculatePercentage(totalInvested, utilities).toFixed(2)
       },
       {
         sectorName: "Materials",
-        materials,
+        moneyInvested: materials,
         investPerc: calculatePercentage(totalInvested, materials).toFixed(2)
       },
       {
         sectorName: "Consumer Discretionary",
-        consumerDiscretionary,
+        moneyInvested: consumerDiscretionary,
         investPerc: calculatePercentage(totalInvested, consumerDiscretionary).toFixed(2)
       },
       {
         sectorName: "Consumer Staples",
-        consumerStaplesInvested,
+        moneyInvested: consumerStaplesInvested,
         investPerc: calculatePercentage(totalInvested, consumerStaplesInvested).toFixed(2)
       },
       {
         sectorName: "Industrials",
-        industrialsInvested,
+        moneyInvested: industrialsInvested,
         investPerc: calculatePercentage(totalInvested, industrialsInvested).toFixed(2)
       },
       {
         sectorName: "Real Estate",
-        realEstate,
+        moneyInvested: realEstate,
         investPerc: calculatePercentage(totalInvested, realEstate).toFixed(2)
       },
       {
         sectorName: "Information Technology",
-        informationTechnology,
+        moneyInvested: informationTechnology,
         investPerc: calculatePercentage(totalInvested, informationTechnology).toFixed(2)
       },
       {
         sectorName: "Energy",
-        energy,
+        moneyInvested: energy,
         investPerc: calculatePercentage(totalInvested, energy).toFixed(2)
       },
       {
         sectorName: "Communication Services",
-        communicationServices,
+        moneyInvested: communicationServices,
         investPerc: calculatePercentage(totalInvested, communicationServices).toFixed(2)
       },
     ];
