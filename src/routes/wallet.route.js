@@ -26,7 +26,7 @@ router.delete('/delete-wallet/:username/:walletId', verify, deleteWallet, serial
 router.get('/:username/', verify, getWalletsByUsername, serialization)
 
 // Get wallet allocation
-router.get('/allocation/:username/:walletId/', getWalletAllocation, serialization)
+router.get('/allocation/:username/:walletId/', verify, getWalletAllocation, serialization)
 
 // Get wallet by id
 router.get('/get-wallet/:username/:walletId', verify, getWalletById, serialization)
