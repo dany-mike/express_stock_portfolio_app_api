@@ -18,13 +18,12 @@ cron.schedule(
 );
 
 cron.schedule(
-  "0 * * * *",
+  "5 9 * * *",
   () => {
     sendDailyNotif();
   },
   {
     scheduled: true,
-    timezone: "America/New_York",
   }
 );
 
