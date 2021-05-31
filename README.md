@@ -52,6 +52,8 @@ EMAIL_NODEMAILER=yourProviderEmail
 PASSWORD_NODEMAILER=passwordProviderEmail
 ```
 
+### Import Values collection in db
+
 import the values.json file with **mongoimport** into **Values** collection to search companies by name and sector
 
 [Mongoimport documentation](https://docs.mongodb.com/database-tools/mongoimport/)
