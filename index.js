@@ -16,24 +16,8 @@ const dbConnection = require("./src/utils/db.util");
 // Data Parsing
 app.use(express.json());
 
-if (process.env.NODE_ENV === "development") {
-  app.use(
-    cors({
-      credentials: true,
-      origin: `http://localhost:${process.env.PORT_FRONT}`
-    })
-  );
-}
-
-if (process.env.NODE_ENV === "production") {
-  app.use(
-    cors({
-      credentials: true,
-      origin: `https://react-app-stock-portfolio.herokuapp.com`
-    })
-  );
-}
-
+// Cors
+app.use(cors())
 
 // DB connection
 dbConnection();
