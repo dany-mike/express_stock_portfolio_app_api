@@ -1,6 +1,6 @@
 # Wallet App API
 
-Wallet App API is the server side of the ["Wallet App"](https://react-app-stock-portfolio.herokuapp.com/wallets/danymike) application I made with React.js
+Wallet App API is the server side of the ["Wallet App"](https://react-app-stock-portfolio.herokuapp.com/signin) application I made with React.js
 
 ## Features
 
