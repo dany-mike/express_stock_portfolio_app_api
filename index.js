@@ -2,7 +2,46 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const cors = require("cors");
+
+const cookieParser = require("cookie-parser");
+
+// Cookie Parser
+app.use(cookieParser());
+
+require("dotenv").config();
+
+const dbConnection = require("./src/utils/db.util");
+
+// Data Parsing
+app.use(express.json());
+
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === "development") {
+  app.use(
+    cors({
+      credentials: true,
+      origin: `http://localhost:${process.env.PORT_FRONT}`
+    })
+  );
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    cors({
+      credentials: true,
+      origin: `https://react-app-stock-portfolio.herokuapp.com/`
+    })
+  );
+}
+
+
+// DB connection
+dbConnection();
+
+// Job
 const cron = require("node-cron");
+
 const updateAllStocks = require("./src/utils/updateAllStocks.util");
 const sendDailyNotif = require("./src/utils/sendDailyNotif.util");
 
@@ -24,33 +63,9 @@ cron.schedule(
   },
   {
     scheduled: true,
+    timezone: "America/New_York",
   }
 );
-
-const cors = require("cors");
-
-const cookieParser = require("cookie-parser");
-
-// Cookie Parser
-app.use(cookieParser());
-
-require("dotenv").config();
-
-const dbConnection = require("./src/utils/db.util");
-
-// Data Parsing
-app.use(express.json());
-
-// Allow access-control-allow-origin origin === client localhost
-app.use(
-  cors({
-    credentials: true,
-    origin: `http://localhost:${process.env.PORT_FRONT}`,
-  })
-);
-
-// DB connection
-dbConnection();
 
 // Routes Import
 const authRoute = require("./src/routes/auth.route");
